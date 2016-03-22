@@ -44,22 +44,22 @@ def run_test_on_file(filename, verbose=False):
         runs succeeded.
     """
     success = True
-    testlog.info("Test file '%s'" % filename)
+    testlog.info("Test file '{0!s}'".format(filename))
     for option in [
             '-e', '-d', '-s', '-n', '-r', '-x.text', '-p.shstrtab', '-V',
             '--debug-dump=info', '--debug-dump=decodedline',
             '--debug-dump=frames', '--debug-dump=frames-interp']:
-        if verbose: testlog.info("..option='%s'" % option)
+        if verbose: testlog.info("..option='{0!s}'".format(option))
         # stdouts will be a 2-element list: output of readelf and output
         # of scripts/readelf.py
         stdouts = []
         for exe_path in [READELF_PATH, 'scripts/readelf.py']:
             args = [option, filename]
-            if verbose: testlog.info("....executing: '%s %s'" % (
+            if verbose: testlog.info("....executing: '{0!s} {1!s}'".format(
                 exe_path, ' '.join(args)))
             rc, stdout = run_exe(exe_path, args)
             if rc != 0:
-                testlog.error("@@ aborting - '%s' returned '%s'" % (exe_path, rc))
+                testlog.error("@@ aborting - '{0!s}' returned '{1!s}'".format(exe_path, rc))
                 return False
             stdouts.append(stdout)
         if verbose: testlog.info('....comparing output...')
@@ -69,7 +69,7 @@ def run_test_on_file(filename, verbose=False):
         else:
             success = False
             testlog.info('.......................FAIL')
-            testlog.info('....for option "%s"' % option)
+            testlog.info('....for option "{0!s}"'.format(option))
             testlog.info('....Output #1 is readelf, Output #2 is pyelftools')
             testlog.info('@@ ' + errmsg)
             dump_output_to_temp_files(testlog, *stdouts)
@@ -111,7 +111,7 @@ def compare_output(s1, s2):
     flag_after_symtable = False
 
     if len(lines1) != len(lines2):
-        return False, 'Number of lines different: %s vs %s' % (
+        return False, 'Number of lines different: {0!s} vs {1!s}'.format(
                 len(lines1), len(lines2))
 
     for i in range(len(lines1)):
@@ -162,7 +162,7 @@ def compare_output(s1, s2):
                         ok = True
                         break
             if not ok:
-                errmsg = 'Mismatch on line #%s:\n>>%s<<\n>>%s<<\n (%r)' % (
+                errmsg = 'Mismatch on line #{0!s}:\n>>{1!s}<<\n>>{2!s}<<\n ({3!r})'.format(
                     i, lines1[i], lines2[i], changes)
                 return False, errmsg
     return True, ''
@@ -183,9 +183,9 @@ def main():
 
     if options.verbose:
         testlog.info('Running in verbose mode')
-        testlog.info('Python executable = %s' % sys.executable)
-        testlog.info('readelf path = %s' % READELF_PATH)
-        testlog.info('Given list of files: %s' % args)
+        testlog.info('Python executable = {0!s}'.format(sys.executable))
+        testlog.info('readelf path = {0!s}'.format(READELF_PATH))
+        testlog.info('Given list of files: {0!s}'.format(args))
 
     # If file names are given as command-line arguments, only these files
     # are taken as inputs. Otherwise, autodiscovery is performed.

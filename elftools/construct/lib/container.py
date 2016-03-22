@@ -80,10 +80,10 @@ class Container(MutableMapping):
         return iter(self.__dict__)
 
     def __repr__(self):
-        return "%s(%s)" % (self.__class__.__name__, repr(self.__dict__))
+        return "{0!s}({1!s})".format(self.__class__.__name__, repr(self.__dict__))
 
     def __str__(self):
-        return "%s(%s)" % (self.__class__.__name__, str(self.__dict__))
+        return "{0!s}({1!s})".format(self.__class__.__name__, str(self.__dict__))
 
 class FlagsContainer(Container):
     """
@@ -96,7 +96,7 @@ class FlagsContainer(Container):
     def __str__(self):
         d = dict((k, self[k]) for k in self
                  if self[k] and not k.startswith("_"))
-        return "%s(%s)" % (self.__class__.__name__, pformat(d))
+        return "{0!s}({1!s})".format(self.__class__.__name__, pformat(d))
 
 class ListContainer(list):
     """
@@ -139,7 +139,7 @@ class LazyContainer(object):
             text = self._value.__pretty_str__(nesting, indentation)
         else:
             text = str(self._value)
-        return "%s: %s" % (self.__class__.__name__, text)
+        return "{0!s}: {1!s}".format(self.__class__.__name__, text)
 
     def read(self):
         self.stream.seek(self.pos)

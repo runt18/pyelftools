@@ -36,15 +36,15 @@ def process_file(filename):
             # computed attributes (such as its offset in the section) and
             # a header which conforms to the DWARF standard. The access to
             # header elements is, as usual, via item-lookup.
-            print('  Found a compile unit at offset %s, length %s' % (
+            print('  Found a compile unit at offset {0!s}, length {1!s}'.format(
                 CU.cu_offset, CU['unit_length']))
 
             # Start with the top DIE, the root for this CU's DIE tree
             top_DIE = CU.get_top_DIE()
-            print('    Top DIE with tag=%s' % top_DIE.tag)
+            print('    Top DIE with tag={0!s}'.format(top_DIE.tag))
 
             # We're interested in the filename...
-            print('    name=%s' % top_DIE.get_full_path())
+            print('    name={0!s}'.format(top_DIE.get_full_path()))
 
             # Display DIEs recursively starting with top_DIE
             die_info_rec(top_DIE)
@@ -54,7 +54,7 @@ def die_info_rec(die, indent_level='    '):
     """ A recursive function for showing information about a DIE and its
         children.
     """
-    print(indent_level + 'DIE tag=%s' % die.tag)
+    print(indent_level + 'DIE tag={0!s}'.format(die.tag))
     child_indent = indent_level + '  '
     for child in die.iter_children():
         die_info_rec(child, child_indent)

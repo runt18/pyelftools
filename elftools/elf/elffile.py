@@ -206,7 +206,7 @@ class ELFFile(object):
         elif ei_class == b'\x02':
             self.elfclass = 64
         else:
-            raise ELFError('Invalid EI_CLASS %s' % repr(ei_class))
+            raise ELFError('Invalid EI_CLASS {0!s}'.format(repr(ei_class)))
 
         ei_data = self.stream.read(1)
         if ei_data == b'\x01':
@@ -214,7 +214,7 @@ class ELFFile(object):
         elif ei_data == b'\x02':
             self.little_endian = False
         else:
-            raise ELFError('Invalid EI_DATA %s' % repr(ei_data))
+            raise ELFError('Invalid EI_DATA {0!s}'.format(repr(ei_data)))
 
     def _section_offset(self, n):
         """ Compute the offset of section #n in the file

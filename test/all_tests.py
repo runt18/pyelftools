@@ -13,7 +13,7 @@ from utils import is_in_rootdir
 
 def run_test_script(path):
     cmd = [sys.executable, path]
-    print("Running '%s'" % ' '.join(cmd))
+    print("Running '{0!s}'".format(' '.join(cmd)))
     subprocess.check_call(cmd)
 
 def main():

@@ -187,7 +187,7 @@ class CallFrameInfo(object):
                     struct_parse(structs.Dwarf_uleb128(''), self.stream),
                     struct_parse(structs.Dwarf_sleb128(''), self.stream)]
             else:
-                dwarf_assert(False, 'Unknown CFI opcode: 0x%x' % opcode)
+                dwarf_assert(False, 'Unknown CFI opcode: 0x{0:x}'.format(opcode))
 
             instructions.append(CallFrameInstruction(opcode=opcode, args=args))
             offset = self.stream.tell()
@@ -215,7 +215,7 @@ class CallFrameInstruction(object):
         self.args = args
 
     def __repr__(self):
-        return '%s (0x%x): %s' % (
+        return '{0!s} (0x{1:x}): {2!s}'.format(
             instruction_name(self.opcode), self.opcode, self.args)
 
 
@@ -345,7 +345,7 @@ class CFIEntry(object):
                 _add_to_order(instr.args[0])
                 dwarf_assert(
                     isinstance(self, FDE),
-                    '%s instruction must be in a FDE' % name)
+                    '{0!s} instruction must be in a FDE'.format(name))
                 if instr.args[0] in last_line_in_CIE:
                     cur_line[instr.args[0]] = last_line_in_CIE[instr.args[0]]
                 else:
@@ -393,7 +393,7 @@ class RegisterRule(object):
         self.arg = arg
 
     def __repr__(self):
-        return 'RegisterRule(%s, %s)' % (self.type, self.arg)
+        return 'RegisterRule({0!s}, {1!s})'.format(self.type, self.arg)
 
 
 class CFARule(object):
@@ -406,7 +406,7 @@ class CFARule(object):
         self.expr = expr
 
     def __repr__(self):
-        return 'CFARule(reg=%s, offset=%s, expr=%s)' % (
+        return 'CFARule(reg={0!s}, offset={1!s}, expr={2!s})'.format(
             self.reg, self.offset, self.expr)
 
 

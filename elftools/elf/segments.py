@@ -129,7 +129,7 @@ class NoteSegment(Segment):
                                               self.stream,
                                               offset)
             elif note['n_type'] == 'NT_GNU_BUILD_ID':
-                note['n_desc'] = ''.join('%.2x' % ord(b) for b in desc_data)
+                note['n_desc'] = ''.join('{0:.2x}'.format(ord(b)) for b in desc_data)
             else:
                 note['n_desc'] = desc_data
             offset += roundup(note['n_descsz'], 2)

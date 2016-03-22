@@ -49,7 +49,7 @@ def process_file(filename):
             # computed attributes (such as its offset in the section) and
             # a header which conforms to the DWARF standard. The access to
             # header elements is, as usual, via item-lookup.
-            print('  Found a compile unit at offset %s, length %s' % (
+            print('  Found a compile unit at offset {0!s}, length {1!s}'.format(
                 CU.cu_offset, CU['unit_length']))
 
             # A CU provides a simple API to iterate over all the DIEs in it.
@@ -65,7 +65,7 @@ def process_file(filename):
                         loclist = location_lists.get_location_list_at_offset(
                             attr.value)
 
-                        print('   DIE %s. attr %s.\n%s' % (
+                        print('   DIE {0!s}. attr {1!s}.\n{2!s}'.format(
                             DIE.tag,
                             attr.name,
                             show_loclist(loclist, dwarfinfo, indent='      ')))
@@ -78,7 +78,7 @@ def show_loclist(loclist, dwarfinfo, indent):
     d = []
     for loc_entity in loclist:
         if isinstance(loc_entity, LocationEntry):
-            d.append('%s <<%s>>' % (
+            d.append('{0!s} <<{1!s}>>'.format(
                 loc_entity,
                 describe_DWARF_expr(loc_entity.loc_expr, dwarfinfo.structs)))
         else:

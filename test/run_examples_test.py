@@ -40,7 +40,7 @@ def reference_output_path(example_path):
 
 
 def run_example_and_compare(example_path):
-    testlog.info("Example '%s'" % example_path)
+    testlog.info("Example '{0!s}'".format(example_path))
 
     reference_path = reference_output_path(example_path)
     ref_str = ''
@@ -48,13 +48,13 @@ def run_example_and_compare(example_path):
         with open(reference_path) as ref_f:
             ref_str = ref_f.read()
     except (IOError, OSError) as e:
-        testlog.info('.......ERROR - reference output cannot be read! - %s' % e)
+        testlog.info('.......ERROR - reference output cannot be read! - {0!s}'.format(e))
         return False
 
     rc, example_out = run_exe(example_path, ['--test',
                                              './examples/sample_exe64.elf'])
     if rc != 0:
-        testlog.info('.......ERROR - example returned error code %s' % rc)
+        testlog.info('.......ERROR - example returned error code {0!s}'.format(rc))
         return False
 
     # Comparison is done as lists of lines, to avoid EOL problems

@@ -22,7 +22,7 @@ stream = open('test/testfiles/exe_simple64.elf', 'rb')
 
 efile = ELFFile(stream)
 print('elfclass', efile.elfclass)
-print('===> %s sections!' % efile.num_sections())
+print('===> {0!s} sections!'.format(efile.num_sections()))
 print(efile.header)
 
 dinfo = efile.get_dwarf_info()

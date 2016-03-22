@@ -291,8 +291,8 @@ class _InitialLengthAdapter(Adapter):
             if obj.first == 0xFFFFFFFF:
                 return obj.second
             else:
-                raise ConstructError("Failed decoding initial length for %X" % (
-                    obj.first))
+                raise ConstructError("Failed decoding initial length for {0:X}".format((
+                    obj.first)))
 
 
 def _LEB128_reader():

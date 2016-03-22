@@ -63,7 +63,7 @@ def deprecated(f):
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
         warnings.warn(
-            "This name is deprecated, use %s instead" % f.__name__,
+            "This name is deprecated, use {0!s} instead".format(f.__name__),
             DeprecationWarning, stacklevel=2)
         return f(*args, **kwargs)
     return wrapper
