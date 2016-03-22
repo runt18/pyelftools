@@ -20,11 +20,13 @@ def setup_syspath():
         sys.path.insert(0, '.')
 
 
-def run_exe(exe_path, args=[], echo=False):
+def run_exe(exe_path, args=None, echo=False):
     """ Runs the given executable as a subprocess, given the
         list of arguments. Captures its return code (rc) and stdout and
         returns a pair: rc, stdout_str
     """
+    if args is None:
+        args = []
     popen_cmd = [exe_path] + args
     if os.path.splitext(exe_path)[1] == '.py':
         popen_cmd.insert(0, sys.executable)
