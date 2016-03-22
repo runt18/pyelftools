@@ -45,14 +45,14 @@ class Probe(Construct):
         Construct.__init__(self, None)
         if name is None:
             Probe.counter += 1
-            name = "<unnamed %d>" % (Probe.counter,)
+            name = "<unnamed {0:d}>".format(Probe.counter)
         self.printname = name
         self.show_stream = show_stream
         self.show_context = show_context
         self.show_stack = show_stack
         self.stream_lookahead = stream_lookahead
     def __repr__(self):
-        return "%s(%r)" % (self.__class__.__name__, self.printname)
+        return "{0!s}({1!r})".format(self.__class__.__name__, self.printname)
     def _parse(self, stream, context):
         self.printout(stream, context)
     def _build(self, obj, stream, context):
@@ -125,7 +125,7 @@ class Debugger(Subconstruct):
             self.handle_exc()
     def handle_exc(self, msg = None):
         print("=" * 80)
-        print("Debugging exception of %s:" % (self.subcon,))
+        print("Debugging exception of {0!s}:".format(self.subcon))
         print("".join(traceback.format_exception(*sys.exc_info())[1:]))
         if msg:
             print(msg)

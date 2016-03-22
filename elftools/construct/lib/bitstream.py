@@ -73,5 +73,5 @@ class BitStreamWriter(object):
         if not data:
             return
         if type(data) is not str:
-            raise TypeError("data must be a string, not %r" % (type(data),))
+            raise TypeError("data must be a string, not {0!r}".format(type(data)))
         self.buffer.append(data)

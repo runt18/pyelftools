@@ -21,7 +21,7 @@ def describe_ei_data(x):
     return _DESCR_EI_DATA.get(x, _unknown)
 
 def describe_ei_version(x):
-    s = '%d' % ENUM_E_VERSION[x]
+    s = '{0:d}'.format(ENUM_E_VERSION[x])
     if x == 'EV_CURRENT':
         s += ' (current)'
     return s
@@ -36,7 +36,7 @@ def describe_e_machine(x):
     return _DESCR_E_MACHINE.get(x, _unknown)
 
 def describe_e_version_numeric(x):
-    return '0x%x' % ENUM_E_VERSION[x]
+    return '0x{0:x}'.format(ENUM_E_VERSION[x])
 
 def describe_p_type(x):
     if x in _DESCR_P_TYPE:
@@ -80,7 +80,7 @@ def describe_symbol_visibility(x):
     return _DESCR_ST_VISIBILITY.get(x, _unknown)
 
 def describe_symbol_shndx(x):
-    return _DESCR_ST_SHNDX.get(x, '%3s' % x)
+    return _DESCR_ST_SHNDX.get(x, '{0:3!s}'.format(x))
 
 def describe_reloc_type(x, elffile):
     arch = elffile.get_machine_arch()
@@ -95,7 +95,7 @@ def describe_reloc_type(x, elffile):
     elif arch == 'MIPS':
         return _DESCR_RELOC_TYPE_MIPS.get(x, _unknown)
     else:
-        return 'unrecognized: %-7x' % (x & 0xFFFFFFFF)
+        return 'unrecognized: {0:<7x}'.format((x & 0xFFFFFFFF))
 
 def describe_dyn_tag(x):
     return _DESCR_D_TAG.get(x, _unknown)
@@ -115,7 +115,7 @@ def describe_syminfo_flags(x):
         SUNW_SYMINFO_FLAGS.SYMINFO_FLG_DEFERRED) if x & flag)
 
 def describe_symbol_boundto(x):
-    return _DESCR_SYMINFO_BOUNDTO.get(x, '%3s' % x)
+    return _DESCR_SYMINFO_BOUNDTO.get(x, '{0:3!s}'.format(x))
 
 def describe_ver_flags(x):
     return ' | '.join(_DESCR_VER_FLAGS[flag] for flag in (
@@ -127,17 +127,17 @@ def describe_note(x):
   n_desc = x['n_desc']
   desc = ''
   if x['n_type'] == 'NT_GNU_ABI_TAG':
-      desc = '\n    OS: %s, ABI: %d.%d.%d' % (
+      desc = '\n    OS: {0!s}, ABI: {1:d}.{2:d}.{3:d}'.format(
           _DESCR_NOTE_ABI_TAG_OS.get(n_desc['abi_os'], _unknown),
           n_desc['abi_major'], n_desc['abi_minor'], n_desc['abi_tiny'])
   elif x['n_type'] == 'NT_GNU_BUILD_ID':
-      desc = '\n    Build ID: %s' % (n_desc)
+      desc = '\n    Build ID: {0!s}'.format((n_desc))
 
   note_type = (x['n_type'] if isinstance(x['n_type'], str)
                else 'Unknown note type:')
-  note_type_desc = ('0x%.8x' % x['n_type'] if isinstance(x['n_type'], int) else
+  note_type_desc = ('0x{0:.8x}'.format(x['n_type']) if isinstance(x['n_type'], int) else
                     _DESCR_NOTE_N_TYPE.get(x['n_type'], _unknown))
-  return '%s (%s)%s' % (note_type, note_type_desc, desc)
+  return '{0!s} ({1!s}){2!s}'.format(note_type, note_type_desc, desc)
 
 #-------------------------------------------------------------------------------
 _unknown = '<unknown>'

@@ -76,7 +76,7 @@ def _generate_dynamic_values(map, prefix, index_start, index_end, value_start):
         [index_start, index_end]. The values start at value_start.
     """
     for index in range(index_start, index_end + 1):
-        name = '%s%s' % (prefix, index)
+        name = '{0!s}{1!s}'.format(prefix, index)
         value = value_start + index - index_start
         map[name] = value
 
@@ -128,7 +128,7 @@ class GenericExprVisitor(object):
             # Decode the opcode and its name
             self._cur_opcode = ord(byte)
             self._cur_opcode_name = DW_OP_opcode2name.get(
-                self._cur_opcode, 'OP:0x%x' % self._cur_opcode)
+                self._cur_opcode, 'OP:0x{0:x}'.format(self._cur_opcode))
             # Will be filled in by visitors
             self._cur_args = [] 
 
@@ -224,9 +224,9 @@ class GenericExprVisitor(object):
             add(opname, self._visit_OP_with_no_args)
 
         for n in range(0, 32):
-            add('DW_OP_lit%s' % n, self._visit_OP_with_no_args)
-            add('DW_OP_reg%s' % n, self._visit_OP_with_no_args)
-            add('DW_OP_breg%s' % n, 
+            add('DW_OP_lit{0!s}'.format(n), self._visit_OP_with_no_args)
+            add('DW_OP_reg{0!s}'.format(n), self._visit_OP_with_no_args)
+            add('DW_OP_breg{0!s}'.format(n), 
                 self._make_visitor_arg_struct(self.structs.Dwarf_sleb128('')))
 
         add('DW_OP_fbreg',

@@ -56,14 +56,14 @@ class DynamicTag(object):
         return self.entry[name]
 
     def __repr__(self):
-        return '<DynamicTag (%s): %r>' % (self.entry.d_tag, self.entry)
+        return '<DynamicTag ({0!s}): {1!r}>'.format(self.entry.d_tag, self.entry)
 
     def __str__(self):
         if self.entry.d_tag in self._HANDLED_TAGS:
-            s = '"%s"' % getattr(self, self.entry.d_tag[3:].lower())
+            s = '"{0!s}"'.format(getattr(self, self.entry.d_tag[3:].lower()))
         else:
-            s = '%#x' % self.entry.d_ptr
-        return '<DynamicTag (%s) %s>' % (self.entry.d_tag, s)
+            s = '{0:#x}'.format(self.entry.d_ptr)
+        return '<DynamicTag ({0!s}) {1!s}>'.format(self.entry.d_tag, s)
 
 
 class Dynamic(object):
@@ -210,8 +210,7 @@ class DynamicSegment(Segment, Dynamic):
                 if symbol_size != tag['d_val']:
                     # DT_SYMENT is the size of one symbol entry. It must be the
                     # same as returned by Elf_Sym.sizeof.
-                    raise ELFError('DT_SYMENT (%d) != Elf_Sym (%d).' %
-                                   (tag['d_val'], symbol_size))
+                    raise ELFError('DT_SYMENT ({0:d}) != Elf_Sym ({1:d}).'.format(tag['d_val'], symbol_size))
             if (tag_ptr > tab_ptr and
                     (nearest_ptr is None or nearest_ptr > tag_ptr)):
                 nearest_ptr = tag_ptr

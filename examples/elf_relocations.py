@@ -30,15 +30,15 @@ def process_file(filename):
         reladyn = elffile.get_section_by_name(reladyn_name)
 
         if not isinstance(reladyn, RelocationSection):
-            print('  The file has no %s section' % reladyn_name)
+            print('  The file has no {0!s} section'.format(reladyn_name))
 
-        print('  %s section with %s relocations' % (
+        print('  {0!s} section with {1!s} relocations'.format(
             reladyn_name, reladyn.num_relocations()))
 
         for reloc in reladyn.iter_relocations():
-            print('    Relocation (%s)' % 'RELA' if reloc.is_RELA() else 'REL')
+            print('    Relocation ({0!s})'.format('RELA') if reloc.is_RELA() else 'REL')
             # Relocation entry attributes are available through item lookup
-            print('      offset = %s' % reloc['r_offset'])
+            print('      offset = {0!s}'.format(reloc['r_offset']))
 
 
 if __name__ == '__main__':

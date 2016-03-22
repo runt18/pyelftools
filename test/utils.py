@@ -53,5 +53,5 @@ def dump_output_to_temp_files(testlog, *args):
         file = os.fdopen(fd, 'w')
         file.write(s)
         file.close()
-        testlog.info('@@ Output #%s dumped to file: %s' % (i + 1, path))
+        testlog.info('@@ Output #{0!s} dumped to file: {1!s}'.format(i + 1, path))
 

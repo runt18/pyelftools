@@ -143,10 +143,10 @@ class DIE(object):
     #------ PRIVATE ------#
 
     def __repr__(self):
-        s = 'DIE %s, size=%s, has_chidren=%s\n' % (
+        s = 'DIE {0!s}, size={1!s}, has_chidren={2!s}\n'.format(
             self.tag, self.size, self.has_children)
         for attrname, attrval in iteritems(self.attributes):
-            s += '    |%-18s:  %s\n' % (attrname, attrval)
+            s += '    |{0:<18!s}:  {1!s}\n'.format(attrname, attrval)
         return s
 
     def __str__(self):

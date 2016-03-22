@@ -112,7 +112,7 @@ class DWARFInfo(object):
         """
         dwarf_assert(
             offset < self.debug_abbrev_sec.size,
-            "Offset '0x%x' to abbrev table out of section bounds" % offset)
+            "Offset '0x{0:x}' to abbrev table out of section bounds".format(offset))
         if offset not in self._abbrevtable_cache:
             self._abbrevtable_cache[offset] = AbbrevTable(
                 structs=self.structs,
@@ -239,7 +239,7 @@ class DWARFInfo(object):
         cu_die_offset = self.debug_info_sec.stream.tell()
         dwarf_assert(
             self._is_supported_version(cu_header['version']),
-            "Expected supported DWARF version. Got '%s'" % cu_header['version'])
+            "Expected supported DWARF version. Got '{0!s}'".format(cu_header['version']))
         return CompileUnit(
                 header=cu_header,
                 dwarfinfo=self,
